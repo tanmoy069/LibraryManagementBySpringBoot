@@ -179,10 +179,16 @@ public class LibrarianLoginController {
 	public String updateReturn(@ModelAttribute(name="updateReturnForm") Borrower ob, Model model) {
 		try {
 			Borrower upObj = borrowerRepo.getOne(ob.getBorrowerId());
+			Book book = bookRepo.getOne(upObj.getBookId());
+			if (!upObj.isStatus()) {
+				model.addAttribute("statusReturn", true);
+				model.addAttribute("bookObj", bookRepo.findAll());
+				model.addAttribute("borrowObj", borrowerRepo.findAll());
+				return "update-return";					
+			}
 			upObj.setLastDateOfReturn(LocalDate.now());
 			upObj.setStatus(false);
 			borrowerRepo.save(upObj);
-			Book book = bookRepo.getOne(upObj.getBookId());
 			book.setAvailableBooks(book.getAvailableBooks() + 1);
 			bookRepo.save(book);
 			model.addAttribute("validCredentials", true);

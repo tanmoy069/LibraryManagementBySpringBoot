@@ -82,6 +82,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Successfully!</strong>
 					Updated Borrower!
 				</div>
+				<div th:if="${statusReturn}" class="alert warning">
+					<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> <strong>Info!</strong>
+					Book already returned!
+				</div>
 	          </div>
 	        </div>
 	      </div>
